@@ -1,26 +1,50 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { Tabs } from '@yazanaabed/react-tabs';
+import Tab1 from './components/Basic/Tab1';
+import Tab2 from './components/Basic/Tab2';
+import Tab3 from './components/Basic/Tab3';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
+const styles = {
+  textAlign: 'center',
+};
+
+class App extends React.Component {
+  state = {
+    list: [],
+  };
+  handlerClick = player => {
+    const { list } = this.state;
+    //  new feature this is same like list.concat(player)
+    // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment
+    this.setState({ list: [...list, player] });
+  };
+
+  render() {
+    return (
+      <div style={styles}>
+        <Tabs
+          activeTab={{
+            id: 'tab1',
+          }}
         >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+          <Tabs.Tab id='tab1' title='Tab 1'>
+            <div style={{ padding: 10 }}>
+              <Tab1 onClick={this.handlerClick} />
+            </div>
+          </Tabs.Tab>
+          <Tabs.Tab id='tab2' title='Tab 2'>
+            <div style={{ padding: 10 }}>
+              <Tab2 onClick={this.handlerClick} />
+            </div>
+          </Tabs.Tab>
+          <Tabs.Tab id='tab3' title='Tab 3'>
+            <div style={{ padding: 10 }}>
+              <Tab3 listOfPlayers={this.state.list} />
+            </div>
+          </Tabs.Tab>
+        </Tabs>
+      </div>
+    );
+  }
 }
-
 export default App;
